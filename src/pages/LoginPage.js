@@ -114,7 +114,7 @@ const LoginPage = ({ role }) => {
             setLoader(false)
         }
         else if (status === 'error') {
-            setMessage("Network Error")
+            setMessage("Erreur Réseau")
             setShowPopup(true)
             setLoader(false)
             setGuestLoader(false)
@@ -136,10 +136,10 @@ const LoginPage = ({ role }) => {
                         }}
                     >
                         <Typography variant="h4" sx={{ mb: 2, color: "#2c2143" }}>
-                            {role} Login
+                            Connexion {role}
                         </Typography>
                         <Typography variant="h7">
-                            Welcome back! Please enter your details
+                            Bienvenue! Veuillez entrer vos informations
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
                             {role === "Student" ? (
@@ -149,13 +149,13 @@ const LoginPage = ({ role }) => {
                                         required
                                         fullWidth
                                         id="rollNumber"
-                                        label="Enter your Roll Number"
+                                        label="Entrez votre numéro d'inscription"
                                         name="rollNumber"
                                         autoComplete="off"
                                         type="number"
                                         autoFocus
                                         error={rollNumberError}
-                                        helperText={rollNumberError && 'Roll Number is required'}
+                                        helperText={rollNumberError && "Le numéro d'inscription est requis"}
                                         onChange={handleInputChange}
                                     />
                                     <TextField
@@ -163,12 +163,12 @@ const LoginPage = ({ role }) => {
                                         required
                                         fullWidth
                                         id="studentName"
-                                        label="Enter your name"
+                                        label="Entrez votre nom"
                                         name="studentName"
                                         autoComplete="name"
                                         autoFocus
                                         error={studentNameError}
-                                        helperText={studentNameError && 'Name is required'}
+                                        helperText={studentNameError && "Le nom est requis"}
                                         onChange={handleInputChange}
                                     />
                                 </>
@@ -178,12 +178,12 @@ const LoginPage = ({ role }) => {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Enter your email"
+                                    label="Entrez votre email"
                                     name="email"
                                     autoComplete="email"
                                     autoFocus
                                     error={emailError}
-                                    helperText={emailError && 'Email is required'}
+                                    helperText={emailError && "L'email est requis"}
                                     onChange={handleInputChange}
                                 />
                             )}
@@ -192,12 +192,12 @@ const LoginPage = ({ role }) => {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label="Mot de passe"
                                 type={toggle ? 'text' : 'password'}
                                 id="password"
                                 autoComplete="current-password"
                                 error={passwordError}
-                                helperText={passwordError && 'Password is required'}
+                                helperText={passwordError && "Le mot de passe est requis"}
                                 onChange={handleInputChange}
                                 InputProps={{
                                     endAdornment: (
@@ -216,10 +216,10 @@ const LoginPage = ({ role }) => {
                             <Grid container sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <FormControlLabel
                                     control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
+                                    label="Se souvenir de moi"
                                 />
                                 <StyledLink href="#">
-                                    Forgot password?
+                                    Mot de passe oublié?
                                 </StyledLink>
                             </Grid>
                             <RedButton
@@ -230,7 +230,7 @@ const LoginPage = ({ role }) => {
                             >
                                 {loader ?
                                     <CircularProgress size={24} color="inherit" />
-                                    : "Login"}
+                                    : "Connexion"}
                             </RedButton>
                             {/* <Button
                                 fullWidth
@@ -238,16 +238,16 @@ const LoginPage = ({ role }) => {
                                 variant="outlined"
                                 sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
                             >
-                                Login as Guest
+                                Connexion en tant qu'invité
                             </Button> */}
                             {/* {role === "Admin" &&
                                 <Grid container>
                                     <Grid>
-                                        Don't have an account?
+                                        Vous n'avez pas de compte?
                                     </Grid>
                                     <Grid item sx={{ ml: 2 }}>
                                         <StyledLink to="/Adminregister">
-                                            Sign up
+                                            Inscrivez-vous
                                         </StyledLink>
                                     </Grid>
                                 </Grid>
@@ -276,7 +276,7 @@ const LoginPage = ({ role }) => {
                 open={guestLoader}
             >
                 <CircularProgress color="primary" />
-                Please Wait
+                Veuillez patienter
             </Backdrop>
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </ThemeProvider>
