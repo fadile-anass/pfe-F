@@ -213,15 +213,15 @@ const LoginPage = ({ role }) => {
                                     ),
                                 }}
                             />
-                            <Grid container sx={{ display: "flex", justifyContent: "space-between" }}>
+                            {/* <Grid container sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <FormControlLabel
                                     control={<Checkbox value="remember" color="primary" />}
                                     label="Se souvenir de moi"
                                 />
-                                {/* <StyledLink href="#">
+                                <StyledLink href="#">
                                     Mot de passe oublié?
-                                </StyledLink> */}
-                            </Grid>
+                                </StyledLink>
+                            </Grid> */}
                             <RedButton
                                 type="submit"
                                 fullWidth
