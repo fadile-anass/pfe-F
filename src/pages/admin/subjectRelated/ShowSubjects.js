@@ -5,7 +5,7 @@ import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import {
-    Paper, Box, IconButton,
+    Paper, Box, IconButton,Typography,
 } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import TableTemplate from '../../../components/TableTemplate';
@@ -80,6 +80,9 @@ const ShowSubjects = () => {
 
     return (
         <>
+                    <Typography variant="h3" align="center" gutterBottom>
+                Gére les matières
+            </Typography>
             {loading ?
                 <div>Chargement en cours...</div>
                 :

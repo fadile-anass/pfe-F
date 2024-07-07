@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip, Typography } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -86,6 +86,7 @@ const ShowClasses = () => {
     };
     return (
       <>
+
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title="Ajouter des étudiants et matières">
             <IconButton
@@ -140,6 +141,9 @@ const ShowClasses = () => {
 
   return (
     <>
+                <Typography variant="h3" align="center" gutterBottom>
+            Gére les classes
+        </Typography>
       {loading ?
         <div>Chargement...</div>
         :

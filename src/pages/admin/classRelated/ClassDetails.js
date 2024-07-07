@@ -18,6 +18,8 @@ import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import { TableContainer, Paper, Table, TableBody, TableCell, TableRow, Button } from '@mui/material';
+
 
 const ClassDetails = () => {
     const params = useParams()
@@ -138,6 +140,7 @@ const ClassDetails = () => {
 
     const StudentsButtonHaver = ({ row }) => {
         return (
+            
             <>
                 <IconButton onClick={() => deleteHandler(row.id, "Student")}>
                     <PersonRemoveIcon color="error" />
@@ -173,6 +176,7 @@ const ClassDetails = () => {
 
     const ClassStudentsSection = () => {
         return (
+            
             <>
                 {getresponse ? (
                     <>
@@ -211,38 +215,47 @@ const ClassDetails = () => {
         const numberOfSubjects = subjectsList.length;
         const numberOfStudents = sclassStudents.length;
 
-        return (
-            <>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Détails de la classe
-                </Typography>
-                <Typography variant="h5" gutterBottom>
-                    C'est la classe {sclassDetails && sclassDetails.sclassName}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Nombre de matières : {numberOfSubjects}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                    Nombre d'étudiants : {numberOfStudents}
-                </Typography>
-                {getresponse &&
-                    <GreenButton
-                        variant="contained"
-                        onClick={() => navigate("/Admin/class/addstudents/" + classID)}
-                    >
-                        Ajouter des étudiants
-                    </GreenButton>
-                }
-                {response &&
-                    <GreenButton
-                        variant="contained"
-                        onClick={() => navigate("/Admin/addsubject/" + classID)}
-                    >
-                        Ajouter des matières
-                    </GreenButton>
-                }
-            </>
-        );
+return (
+    <>
+        <Typography variant="h4" align="center" gutterBottom>
+            Détails de la classe
+        </Typography>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableBody>
+                    <TableRow>
+                        <TableCell variant="head">Nom de la classe</TableCell>
+                        <TableCell>{sclassDetails && sclassDetails.sclassName}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell variant="head">Nombre de matières</TableCell>
+                        <TableCell>{numberOfSubjects}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell variant="head">Nombre d'étudiants</TableCell>
+                        <TableCell>{numberOfStudents}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
+        <Box mt={2}>
+            <GreenButton
+                variant="contained"
+                onClick={() => navigate("/Admin/class/addstudents/" + classID)}
+            >
+                Ajouter des étudiants
+            </GreenButton>
+            <GreenButton
+                variant="contained"
+                onClick={() => navigate("/Admin/addsubject/" + classID)}
+                sx={{ ml: 2 }}
+            >
+                Ajouter des matières
+            </GreenButton>
+        </Box>
+    </>
+);
+
     }
 
     return (
