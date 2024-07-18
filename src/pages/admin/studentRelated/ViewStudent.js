@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUser,
@@ -7,6 +7,9 @@ import {
 } from "../../../redux/userRelated/userHandle";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSubjectList } from "../../../redux/sclassRelated/sclassHandle";
+// import {  Tab, Typography, BottomNavigation, BottomNavigationAction, Paper,
+//   Table, TableBody, TableCell, TableContainer, TableHead, TableRow
+// } from '@mui/material';
 import {
   Box,
   Button,
@@ -21,6 +24,9 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Container,
+  TableContainer,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -96,7 +102,6 @@ const ViewStudent = () => {
   const [message, setMessage] = useState("");
 
   const handleOpen = (subId) => {
-
     setOpenStates((prevState) => ({
       ...prevState,
       [subId]: !prevState[subId],
@@ -112,7 +117,6 @@ const ViewStudent = () => {
 
   const [selectedSection, setSelectedSection] = useState("table");
   const handleSectionChange = (event, newSection) => {
-
     setSelectedSection(newSection);
   };
 
@@ -140,7 +144,6 @@ const ViewStudent = () => {
         console.error(error);
       });
   };
-  
 
   const deleteHandler = () => {
     dispatch(deleteUser(studentID, address)).then(() => {
@@ -170,7 +173,21 @@ const ViewStudent = () => {
     { name: "Présent", value: overallAttendancePercentage },
     { name: "Absent", value: overallAbsentPercentage },
   ];
-
+  const [isNameFocus, setIsNameFocus] = useState(false);
+  const handleNameChange = (name) => {
+    setName(name);
+    setIsNameFocus(true);
+  };
+  const [isRollFocus, setIsRollFocus] = useState(false);
+  const handleRollChange = (roll) => {
+    setRollNum(roll);
+    setIsRollFocus(true);
+  };
+  const [isPasswordFocus, setIsPasswordFocus] = useState(false);
+  const handlePasswordChange = (Password) => {
+    setPassword(Password);
+    setIsPasswordFocus(true);
+  };
   const subjectData = Object.entries(
     groupAttendanceBySubject(subjectAttendance)
   ).map(([subName, { subCode, present, sessions }]) => {
@@ -218,7 +235,6 @@ const ViewStudent = () => {
                         <Button
                           variant="contained"
                           onClick={() => handleOpen(subId)}
-                          
                         >
                           {openStates[subId] ? (
                             <KeyboardArrowUp />
@@ -499,78 +515,100 @@ const ViewStudent = () => {
 
   const StudentDetailsSection = () => {
     return (
-      <div>
-        Nom : {userDetails.name}
-        <br />
-        maticule d'étudiants : {userDetails.rollNum}
-        <br />
-        Classe : {sclassName.sclassName}
-        <br />
-        École : {studentSchool.schoolName}
-        {subjectAttendance &&
-          Array.isArray(subjectAttendance) &&
-          subjectAttendance.length > 0 && <CustomPieChart data={chartData} />}
-        <Button
-          variant="contained"
-          sx={styles.styledButton}
-          onClick={deleteHandler}
-        >
-          Supprimer
-        </Button>
-        <br />
-        <Button
-          variant="contained"
-          sx={styles.styledButton}
-          className="show-tab"
-          onClick={() => {
-            setShowTab(!showTab);
-          }}
-        >
-          {showTab ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-          Modifier Étudiant
-        </Button>
-        <Collapse in={showTab} timeout="auto" unmountOnExit>
-          <div className="register">
-            <form className="registerForm" onSubmit={submitHandler}>
-              <span className="registerTitle">Modifier Détails</span>
-              <label>Nom</label>
-              <input
-                className="registerInput"
-                type="text"
-                placeholder="Entrer le nom de l'utilisateur..."
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                autoComplete="name"
-                required
-              />
+      <>
+        <div>
+          <Typography variant="h4" align="center" gutterBottom>
+            Détails d'étudiant
+          </Typography>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Nom</TableCell>
+                  <TableCell>{userDetails.name}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Matricule d'étudiants</TableCell>
+                  <TableCell>{userDetails.rollNum}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Classe</TableCell>
+                  <TableCell>{sclassName.sclassName}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>École</TableCell>
+                  <TableCell>{studentSchool.schoolName}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {subjectAttendance &&
+            Array.isArray(subjectAttendance) &&
+            subjectAttendance.length > 0 && <CustomPieChart data={chartData} />}
+          <Button
+            variant="contained"
+            sx={styles.styledButton}
+            onClick={deleteHandler}
+          >
+            Supprimer
+          </Button>
+          <br />
+          <Button
+            variant="contained"
+            sx={styles.styledButton}
+            className="show-tab"
+            onClick={() => {
+              setShowTab(!showTab);
+            }}
+          >
+            {showTab ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            Modifier Étudiant
+          </Button>
+          <Collapse in={showTab} timeout="auto" unmountOnExit>
+            <div className="register">
+              <form className="registerForm" onSubmit={submitHandler}>
+                <span className="registerTitle">Modifier Détails</span>
+                <label>Nom</label>
+                <input
+                  className="registerInput"
+                  type="text"
+                  placeholder="Entrer le nom de l'utilisateur..."
+                  value={name}
+                  onChange={(event) => handleNameChange(event.target.value)}
+                  onBlur={() => setIsNameFocus(false)}
+                  autoComplete="name"
+                  required
+                  autoFocus={isNameFocus}
+                />
 
-              <label>maticule d'étudiants</label>
-              <input
-                className="registerInput"
-                type="number"
-                placeholder="Entrer le maticule d'étudiants de l'utilisateur..."
-                value={rollNum}
-                onChange={(event) => setRollNum(event.target.value)}
-                required
-              />
+                <label>maticule d'étudiants</label>
+                <input
+                  className="registerInput"
+                  type="number"
+                  placeholder="Entrer le maticule d'étudiants de l'utilisateur..."
+                  value={rollNum}
+                  onChange={(event) => handleRollChange(event.target.value)}
+                  required
+                  autoFocus={isRollFocus}
+                />
 
-              <label>Mot de Passe</label>
-              <input
-                className="registerInput"
-                type="password"
-                placeholder="Entrer le mot de passe de l'utilisateur..."
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                autoComplete="new-password"
-              />
+                <label>Mot de Passe</label>
+                <input
+                  className="registerInput"
+                  type="password"
+                  placeholder="Entrer le mot de passe de l'utilisateur..."
+                  onBlur={(event) => setPassword(event.target.value)}
+                  autoComplete="new-password"
+                />
 
-              <button className="registerButton" type="submit">
-                Mettre à Jour
-              </button>
-            </form>
-          </div>
-        </Collapse>
-      </div>
+                <button className="registerButton" type="submit">
+                  Mettre à Jour
+                </button>
+              </form>
+            </div>
+          </Collapse>
+        </div>
+      </>
     );
   };
 

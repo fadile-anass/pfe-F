@@ -34,7 +34,7 @@ const ShowClasses = () => {
   }
 
   const [showPopup, setShowPopup] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message,setMessage] = useState("");
 
   const deleteHandler = (deleteID, address) => {
     dispatch(deleteUser(deleteID, address))

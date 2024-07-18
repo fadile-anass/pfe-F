@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllStudents } from '../../../redux/studentRelated/studentHandle';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import {
-    Paper, Box, IconButton
+    Paper, Box, IconButton,Typography,
 } from '@mui/material';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { BlackButton, BlueButton, GreenButton } from '../../../components/buttonStyles';
@@ -50,7 +50,7 @@ const ShowStudents = () => {
 
     const studentColumns = [
         { id: 'name', label: 'Nom', minWidth: 170 },
-        { id: 'rollNum', label: 'Numéro de rôle', minWidth: 100 },
+        { id: 'rollNum', label: "Matricule d'étudiants", minWidth: 100 },
         { id: 'sclassName', label: 'Classe', minWidth: 170 },
     ]
 
@@ -103,7 +103,7 @@ const ShowStudents = () => {
             setOpen(false);
         };
         return (
-            <>
+            <> 
                 <IconButton onClick={() => deleteHandler(row.id, "Student")}>
                     <PersonRemoveIcon color="error" />
                 </IconButton>
@@ -180,6 +180,9 @@ const ShowStudents = () => {
 
     return (
         <>
+                                        <Typography variant="h3" align="center" gutterBottom>
+                Gére les étudiant
+            </Typography>
             {loading ?
                 <div>Chargement en cours...</div>
                 :

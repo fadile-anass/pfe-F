@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { getClassStudents, getSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Tab, Container, Typography, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
+import { Box, Tab, Container, Typography, BottomNavigation, BottomNavigationAction, Paper,
+   Table, TableBody, TableCell, TableContainer, TableHead, TableRow
+ } from '@mui/material';
 import { BlueButton, GreenButton, PurpleButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+
 
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
@@ -146,36 +149,54 @@ const ViewSubject = () => {
 
     return (
       <>
-        <Typography variant="h4" align="center" gutterBottom>
-          Détails du matière
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Nom du matière : {subjectDetails && subjectDetails.subName}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Code du matière : {subjectDetails && subjectDetails.subCode}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Sessions du matière : {subjectDetails && subjectDetails.sessions}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Nombre d'étudiants : {numberOfStudents}
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Nom de la classe : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
-        </Typography>
-        {subjectDetails && subjectDetails.teacher ?
-          <Typography variant="h6" gutterBottom>
-            Nom du professeur : {subjectDetails.teacher.name}
+          <Typography variant="h4" align="center" gutterBottom>
+              Détails de la matière
           </Typography>
-          :
-          <GreenButton variant="contained"
-            onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}>
-            Ajouter un professeur au matière
-          </GreenButton>
-        }
+          <TableContainer component={Paper}>
+              <Table>
+                  <TableHead>
+                      <TableRow>
+                          <TableCell>Détails</TableCell>
+                          <TableCell>Valeur</TableCell>
+                      </TableRow>
+                  </TableHead>
+                  <TableBody>
+                      <TableRow>
+                          <TableCell>Nom du matière</TableCell>
+                          <TableCell>{subjectDetails && subjectDetails.subName}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell>Code du matière</TableCell>
+                          <TableCell>{subjectDetails && subjectDetails.subCode}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell>Sessions du matière</TableCell>
+                          <TableCell>{subjectDetails && subjectDetails.sessions}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell>Nombre d'étudiants</TableCell>
+                          <TableCell>{numberOfStudents}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell>Nom de la classe</TableCell>
+                          <TableCell>{subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                          <TableCell>Nom du professeur</TableCell>
+                          <TableCell>
+                              {subjectDetails && subjectDetails.teacher ? 
+                                  subjectDetails.teacher.name : 
+                                  <GreenButton variant="contained" onClick={() => navigate("/Admin/teachers/addteacher/" + subjectDetails._id)}>
+                                      Ajouter un professeur au matière
+                                  </GreenButton>
+                              }
+                          </TableCell>
+                      </TableRow>
+                  </TableBody>
+              </Table>
+          </TableContainer>
       </>
-    );
+  );
   }
 
   return (

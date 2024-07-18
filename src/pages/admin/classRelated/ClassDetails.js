@@ -18,7 +18,7 @@ import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import { TableContainer, Paper, Table, TableBody, TableCell, TableRow, Button } from '@mui/material';
+import { TableContainer, Paper, Table, TableBody, TableCell, TableRow } from '@mui/material';
 
 
 const ClassDetails = () => {
@@ -46,7 +46,7 @@ const ClassDetails = () => {
     };
 
     const [showPopup, setShowPopup] = useState(false);
-    const [message, setMessage] = useState("");
+    const [message,setMessage] = useState("");
 
     const deleteHandler = (deleteID, address) => {
         dispatch(deleteUser(deleteID, address))
